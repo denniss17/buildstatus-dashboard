@@ -38,7 +38,7 @@ class Service {
           created: issue.fields ? issue.fields.created : null,
           updated: issue.fields ? issue.fields.updated : null
         }));
-      }
+      };
     }
   }
 }
