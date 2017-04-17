@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "4.0.0-alpha.6",
+    "feathers": "^2.1.1",
+    "feathers-rest": "^1.7.2",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
