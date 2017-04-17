@@ -1,0 +1,24 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "issueTracker": {
+    "type": "jira",
+    "baseUrl": "https://jira.atlassian.com",
+    "filter": "project %3D JRACLOUD AND resolutiondate >%3D -1w ORDER BY updated DESC",
+    "auth": {
+      "type": "none",
+      "username": "JIRA_USERNAME",
+      "password": "JIRA_PASSWORD"
+    }
+  },
+  "ci": {
+    "type": "jenkins",
+    "baseUrl": "http://jenkins.topicusoverheid.local",
+    "jobUrlTemplate": "view/1_DevelopmentBranches/job/Feature_{issue}"
+  }
+}
