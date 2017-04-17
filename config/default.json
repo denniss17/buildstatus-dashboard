@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 3030,
-  "public": "../public/",
+  "public": "../ui/public/",
   "paginate": {
     "default": 10,
     "max": 50
@@ -16,9 +16,5 @@
       "password": "JIRA_PASSWORD"
     }
   },
-  "ci": {
-    "type": "jenkins",
-    "baseUrl": "http://jenkins.topicusoverheid.local",
-    "jobUrlTemplate": "view/1_DevelopmentBranches/job/Feature_{issue}"
-  }
+  "ci": {}
 }

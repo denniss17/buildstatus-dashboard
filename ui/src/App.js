@@ -13,7 +13,7 @@ class App extends Component {
     // Setup default state
     this.state = {
       config: {
-        serverUrl: 'http://localhost:3030'
+        serverUrl: process.env.NODE_ENV === 'production' ? `https://buildstatus-dashboard.herokuapp.com` : 'http://localhost:3030'
       },
       issues: []
     };

@@ -11,6 +11,10 @@
     "name": "Dennis Schroer",
     "email": "dev@dennisschroer.nl"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "ui/node_modules"
+  ],
   "contributors": [],
   "bugs": {},
   "directories": {
@@ -21,10 +25,14 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "test": "npm run eslint && npm run mocha",
+    "test": "npm run eslint && npm run mocha && cd ui && npm run test",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive"
+    "build": "cd ui && yarn build",
+    "react": "cd ui && yarn start",
+    "develop": "yarn start & yarn react",
+    "mocha": "mocha test/ --recursive",
+    "postinstall": "cd ui && yarn install && yarn build"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
