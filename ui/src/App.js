@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import feathers from 'feathers/client';
 import rest from 'feathers-rest/client';
 import request from 'request';
@@ -12,8 +12,11 @@ class App extends Component {
 
     // Setup default state
     this.state = {
+      processes: {
+        fetchIssues: false,
+      },
       config: {
-        serverUrl: process.env.NODE_ENV === 'production' ? `https://buildstatus-dashboard.herokuapp.com` : 'http://localhost:3030'
+        serverUrl: process.env.REACT_APP_SERVER_URL || 'http://localhost:3030'
       },
       issues: []
     };
@@ -31,8 +34,12 @@ class App extends Component {
 
   fetchIssues() {
     const issueService = this.app.service('issues');
+    this.setState({fetchIssues: true});
     issueService.find().then(issues => {
-      this.setState({ issues });
+      this.setState({issues, fetchIssues: false});
+    }).catch(error => {
+      this.setState({fetchIssues: false});
+      console.log(error);
     });
   }
 
@@ -44,6 +51,7 @@ class App extends Component {
         </div>
         <nav className="navbar fixed-bottom navbar-inverse bg-inverse">
           <span className="navbar-text">Number of issues: {this.state.issues.length}</span>
+          <span className="navbar-text">Fetching issues: {this.state.processes.fetchIssues ? 'ja' : 'nee'}</span>
         </nav>
       </div>
     );
