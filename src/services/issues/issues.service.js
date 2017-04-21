@@ -1,17 +1,14 @@
 // Initializes the `issues` service on path `/issues`
-const createService = require('feathers-nedb');
-const createModel = require('../../models/issues.model');
+const createService = require('./issues.class.js');
 const hooks = require('./issues.hooks');
 const filters = require('./issues.filters');
 
 module.exports = function () {
   const app = this;
-  const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
     name: 'issues',
-    Model,
     paginate
   };
 

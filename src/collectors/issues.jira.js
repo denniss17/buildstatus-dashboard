@@ -7,23 +7,7 @@ class JiraIssueCollector {
   }
 
   collect() {
-    return this.request().then(issues => {
-      const issuesService = this.app.service('issues');
-
-      issues.forEach(issue => {
-        issuesService.find({
-          query: {
-            key: issue.key
-          }
-        }).then(response => {
-          if (response.length) {
-            issuesService.patch(response[0]._id, issue);
-          } else {
-            issuesService.create(issue);
-          }
-        });
-      });
-    });
+    return this.request();
   }
 
   /**
