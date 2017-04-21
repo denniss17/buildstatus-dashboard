@@ -1,8 +1,8 @@
-// Initializes the `issues` service on path `/issues`
+// Initializes the `buildStatuses` service on path `/build-statuses`
 const createService = require('feathers-nedb');
-const createModel = require('../../models/issues.model');
-const hooks = require('./issues.hooks');
-const filters = require('./issues.filters');
+const createModel = require('../../models/build-statuses.model');
+const hooks = require('./build-statuses.hooks');
+const filters = require('./build-statuses.filters');
 
 module.exports = function () {
   const app = this;
@@ -10,16 +10,16 @@ module.exports = function () {
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'issues',
+    name: 'build-statuses',
     Model,
     paginate
   };
 
   // Initialize our service with any options it requires
-  app.use('/issues', createService(options));
+  app.use('/build-statuses', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('issues');
+  const service = app.service('build-statuses');
 
   service.hooks(hooks);
 
