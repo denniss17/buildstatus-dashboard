@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const rp = require('request-promise');
+const request = require('request-promise');
 const app = require('../src/app');
 
 describe('Feathers application tests', () => {
@@ -15,14 +15,14 @@ describe('Feathers application tests', () => {
   });
 
   it('starts and shows the index page', () => {
-    return rp('http://localhost:3030').then(body =>
+    return request('http://localhost:3030').then(body =>
       assert.ok(body.indexOf('<html>') !== -1)
     );
   });
 
   describe('404', function() {
     it('shows a 404 HTML page', () => {
-      return rp({
+      return request({
         url: 'http://localhost:3030/path/to/nowhere',
         headers: {
           'Accept': 'text/html'
@@ -34,7 +34,7 @@ describe('Feathers application tests', () => {
     });
 
     it('shows a 404 JSON error without stack trace', () => {
-      return rp({
+      return request({
         url: 'http://localhost:3030/path/to/nowhere',
         json: true
       }).catch(res => {
