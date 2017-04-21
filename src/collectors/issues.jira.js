@@ -1,21 +1,35 @@
 const request = require('request-promise');
 const logger = require('winston');
 
-module.exports = function(app) {
-  return new JiraIssueCollector(app);
-};
-
 class JiraIssueCollector {
   constructor(app) {
     this.app = app;
   }
 
   collect() {
-    this.request().then(issues => {
-      console.log(issues);
+    return this.request().then(issues => {
+      const issuesService = this.app.service('issues');
+
+      issues.forEach(issue => {
+        issuesService.find({
+          query: {
+            key: issue.key
+          }
+        }).then(response => {
+          if (response.length) {
+            issuesService.patch(response[0]._id, issue);
+          } else {
+            issuesService.create(issue);
+          }
+        });
+      });
     });
   }
 
+  /**
+   * Perform the request to the Jira instance based on the configuration
+   * @returns {Promise} A promise which resolves with the list of issue.
+   */
   request() {
     let issueTrackerConfig = this.app.get('issueTracker');
 
@@ -34,7 +48,11 @@ class JiraIssueCollector {
     return request(requestOptions);
   }
 
-
+  /**
+   * Transforms the response body to an array of normalized issues.
+   * @param body The body of the response from jira.
+   * @returns {Array} An array containing the normalized issues.
+   */
   transform(body) {
     return body.issues.map(issue => ({
       key: issue.key,
@@ -49,3 +67,5 @@ class JiraIssueCollector {
     }));
   }
 }
+
+module.exports = JiraIssueCollector;
