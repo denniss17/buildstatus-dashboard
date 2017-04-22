@@ -5,12 +5,8 @@ const filters = require('./issues.filters');
 
 module.exports = function () {
   const app = this;
-  const paginate = app.get('paginate');
-
-  const options = {
-    name: 'issues',
-    paginate
-  };
+  const config = app.get('issues');
+  const options = Object.assign({ name: 'issues' }, config);
 
   // Initialize our service with any options it requires
   app.use('/issues', createService(options));

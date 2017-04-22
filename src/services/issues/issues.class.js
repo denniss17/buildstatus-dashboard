@@ -1,27 +1,36 @@
 const logger = require('winston');
 
 class Service {
-  setup(app){
-    this.app = app;
+  constructor (options) {
+    this.options = options || {};
+    this.loadIssuesService();
+  }
 
-    // Load issue tracker
-    let issuesConfig = this.app.get('issues');
-    logger.info(`Loading issue tracker of type ${issuesConfig.type}`);
+  loadIssuesService() {
+    if(!this.options.type){
+      throw new Error('No issues configuration found. Please configure the issues service.')
+    }
 
-    const serviceName = `issues-${issuesConfig.type}`;
+    logger.info(`Loading issues service of type '${this.options.type}'`);
+
+    const serviceName = `issues-${this.options.type}`;
     const createService = require(`../${serviceName}/${serviceName}.class`);
 
-    this.issuesService = createService(issuesConfig);
+    this.issuesService = createService(this.options);
+  }
+
+  setup(app) {
+    this.app = app;
     this.issuesService.setup(this.app);
   }
 
-  find () {
+  find() {
     // Simply redirect to the specific issue service
-    return this.issuesService.find()
+    return this.issuesService.find();
   }
 }
 
-module.exports = function (options) {
+module.exports = function(options) {
   return new Service(options);
 };
 
