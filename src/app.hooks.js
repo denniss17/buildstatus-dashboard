@@ -15,7 +15,7 @@ module.exports = {
   },
 
   after: {
-    all: [ logger() ],
+    all: [],
     find: [],
     get: [],
     create: [],

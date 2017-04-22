@@ -1,15 +1,23 @@
+const logger = require('winston');
+
 class Service {
   setup(app){
     this.app = app;
 
-    let issueTrackerConfig = this.app.get('issueTracker');
-    const Collector = require(`../../collectors/issues.${issueTrackerConfig.type}`);
+    // Load issue tracker
+    let issuesConfig = this.app.get('issues');
+    logger.info(`Loading issue tracker of type ${issuesConfig.type}`);
 
-    this.collector = new Collector(app);
+    const serviceName = `issues-${issuesConfig.type}`;
+    const createService = require(`../${serviceName}/${serviceName}.class`);
+
+    this.issuesService = createService(issuesConfig);
+    this.issuesService.setup(this.app);
   }
 
   find () {
-    return this.collector.collect()
+    // Simply redirect to the specific issue service
+    return this.issuesService.find()
   }
 }
 

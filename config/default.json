@@ -2,7 +2,7 @@
   "host": "localhost",
   "port": 3030,
   "public": "../ui/public/",
-  "issueTracker": {
+  "issues": {
     "type": "jira",
     "baseUrl": "https://jira.atlassian.com",
     "filter": "project %3D JRACLOUD AND resolutiondate >%3D -1w ORDER BY updated DESC",

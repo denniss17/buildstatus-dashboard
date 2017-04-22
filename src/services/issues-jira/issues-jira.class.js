@@ -1,12 +1,16 @@
-const request = require('request-promise');
 const logger = require('winston');
+const request = require('request-promise');
 
-class JiraIssueCollector {
-  constructor(app) {
+class Service {
+  constructor (options) {
+    this.options = options || {};
+  }
+
+  setup(app) {
     this.app = app;
   }
 
-  collect() {
+  find () {
     return this.request();
   }
 
@@ -15,16 +19,14 @@ class JiraIssueCollector {
    * @returns {Promise} A promise which resolves with the list of issue.
    */
   request() {
-    let issueTrackerConfig = this.app.get('issueTracker');
-
     let requestOptions = {
-      uri: `${issueTrackerConfig.baseUrl}/rest/api/2/search?jql=${issueTrackerConfig.filter}`,
+      uri: `${this.options.baseUrl}/rest/api/2/search?jql=${this.options.filter}`,
       json: true,
       transform: this.transform
     };
 
-    if (issueTrackerConfig.auth && issueTrackerConfig.auth.type !== 'none') {
-      requestOptions.auth = issueTrackerConfig.auth;
+    if (this.options.auth && this.options.auth.type !== 'none') {
+      requestOptions.auth = this.options.auth;
     }
 
     logger.info('Requesting issues from', requestOptions.uri);
@@ -52,4 +54,8 @@ class JiraIssueCollector {
   }
 }
 
-module.exports = JiraIssueCollector;
+module.exports = function (options) {
+  return new Service(options);
+};
+
+module.exports.Service = Service;
