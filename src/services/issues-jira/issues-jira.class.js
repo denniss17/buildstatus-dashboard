@@ -46,7 +46,7 @@ class Service {
       origin: 'jira',
       title: issue.fields ? issue.fields.summary : null,
       type: issue.fields && issue.fields.issuetype ? issue.fields.issuetype.name : null,
-      status: issue.fields && issue.fields.resolution ? issue.fields.resolution.name : null,
+      state: issue.fields && issue.fields.resolution ? issue.fields.resolution.name : null,
       description: issue.fields ? issue.fields.description : null,
       created: issue.fields ? issue.fields.created : null,
       updated: issue.fields ? issue.fields.updated : null

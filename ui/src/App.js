@@ -4,7 +4,19 @@ import rest from 'feathers-rest/client';
 import request from 'request';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import IssueList from './IssueList';
+import IssueList from './issues/IssueList';
+
+const baseIssue = {
+  key: null,
+  link: null,
+  origin: null,
+  title: null,
+  type: null,
+  state: null,
+  description: null,
+  created: null,
+  updated: null
+};
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +24,6 @@ class App extends Component {
 
     // Setup default state
     this.state = {
-      processes: {
-        fetchIssues: false,
-      },
       config: {
         serverUrl: process.env.REACT_APP_SERVER_URL || 'http://localhost:3030'
       },
@@ -26,20 +35,38 @@ class App extends Component {
 
     // Bind methods
     this.fetchIssues = this.fetchIssues.bind(this);
+    this.fetchStatuses = this.fetchStatuses.bind(this);
+    this.updateStatusOfIssues = this.updateStatusOfIssues.bind(this);
   }
 
   componentDidMount() {
-    this.fetchIssues();
+    this.fetchIssues().then(this.fetchStatuses);
   }
 
   fetchIssues() {
     const issueService = this.app.service('issues');
-    this.setState({fetchIssues: true});
-    issueService.find().then(issues => {
-      this.setState({issues, fetchIssues: false});
+    return issueService.find().then(issues => {
+      this.setState({issues, });
+      return issues;
     }).catch(error => {
-      this.setState({fetchIssues: false});
       console.log(error);
+    });
+  }
+
+  fetchStatuses(issues) {
+    const statusesService = this.app.service('statuses');
+    return statusesService.find().then(this.updateStatusOfIssues);
+  }
+
+  updateStatusOfIssues(statuses) {
+    statuses.forEach(status => {
+      this.setState(prevState => {
+        let issue = prevState.issues.find(i => i.key === status.issue);
+        if(issue){
+          issue.status = status;
+        }
+        return { issues: prevState.issues };
+      })
     });
   }
 
@@ -51,7 +78,6 @@ class App extends Component {
         </div>
         <nav className="navbar fixed-bottom navbar-inverse bg-inverse">
           <span className="navbar-text">Number of issues: {this.state.issues.length}</span>
-          <span className="navbar-text">Fetching issues: {this.state.processes.fetchIssues ? 'ja' : 'nee'}</span>
         </nav>
       </div>
     );
