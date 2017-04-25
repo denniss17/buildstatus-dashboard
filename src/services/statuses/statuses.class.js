@@ -23,8 +23,8 @@ class Service {
     this.buildStatusesService.setup(this.app);
   }
 
-  find() {
-    return this.buildStatusesService.find();
+  get(issueKey) {
+    return this.buildStatusesService.get(issueKey);
   }
 }
 
