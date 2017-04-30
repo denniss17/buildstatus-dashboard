@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import feathers from 'feathers/client';
 import rest from 'feathers-rest/client';
 import request from 'request';
+
+import Footer from './Footer';
+import IssueList from './issues/IssueList';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import IssueList from './issues/IssueList';
+import 'font-awesome/css/font-awesome.css';
 
 const baseIssue = {
   key: null,
@@ -71,13 +75,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="status-dashboard">
-        <div className="container-fluid">
+      <div>
+        <div className="container-fluid status-dashboard">
           <IssueList issues={this.state.issues}/>
         </div>
-        <nav className="navbar fixed-bottom navbar-inverse bg-inverse">
-          <span className="navbar-text">Number of issues: {this.state.issues.length}</span>
-        </nav>
+        <Footer issues={this.state.issues}/>
       </div>
     );
   }
