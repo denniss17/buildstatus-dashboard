@@ -12,5 +12,7 @@
       "password": "JIRA_PASSWORD"
     }
   },
-  "statuses": {}
+  "statuses": {
+    "type": "random"
+  }
 }
