@@ -32,11 +32,11 @@ or
 
 The dashboard can be started with:
 
-    yarn start
+    NODE_ENV=production yarn start
     
 or
 
-    npm start
+    NODE_ENV=production npm start
     
 Open your browser and go to http://localhost:3030
 
@@ -76,3 +76,6 @@ Supported:
 - [ ] Travis CI
 - [ ] CircleCI
 
+## Development
+
+TODO
