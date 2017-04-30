@@ -10,10 +10,10 @@ const defaultStatus = {
 };
 
 const StatusResult = {
-  SUCCESS: 'success',
-  FAILURE: 'failure',
-  RUNNING: 'running',
-  UNKNOWN: 'unknown',
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+  RUNNING: 'RUNNING',
+  UNKNOWN: 'UNKNOWN',
 };
 
 module.exports = function(attributes){
