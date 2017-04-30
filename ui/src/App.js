@@ -25,7 +25,7 @@ class App extends Component {
     // Setup default state
     this.state = {
       config: {
-        serverUrl: process.env.REACT_APP_SERVER_URL || 'http://localhost:3030'
+        serverUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:3030' : `${window.location.protocol}//${window.location.host}`
       },
       issues: []
     };
