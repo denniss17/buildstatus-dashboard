@@ -21,7 +21,9 @@ class Service {
 
   setup(app) {
     this.app = app;
-    this.issuesService.setup(this.app);
+    if(typeof this.issuesService.setup === 'function'){
+      this.issuesService.setup(this.app);
+    }
   }
 
   find() {

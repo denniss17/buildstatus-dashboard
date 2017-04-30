@@ -20,7 +20,9 @@ class Service {
 
   setup(app) {
     this.app = app;
-    this.buildStatusesService.setup(this.app);
+    if(typeof this.buildStatusesService.setup === 'function'){
+      this.buildStatusesService.setup(this.app);
+    }
   }
 
   get(issueKey) {
