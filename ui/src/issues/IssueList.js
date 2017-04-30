@@ -29,7 +29,7 @@ class IssueList extends Component {
           return 'card-success';
         case 'RUNNING':
           return 'card-info';
-        case 'ERROR':
+        case 'FAILURE':
           return 'card-danger';
       }
     }
