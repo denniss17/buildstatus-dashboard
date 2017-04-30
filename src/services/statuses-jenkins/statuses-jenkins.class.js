@@ -1,7 +1,8 @@
 const logger = require('winston');
 const request = require('request-promise');
+const Status = require('../../models/status');
 
-class Service {
+class JenkinsStatusesService {
   constructor (options) {
     this.options = options || {};
   }
@@ -42,12 +43,12 @@ class Service {
    */
   transform(body) {
     // TODO transform status
-    return body;
+    return new Status(body);
   }
 }
 
 module.exports = function (options) {
-  return new Service(options);
+  return new JenkinsStatusesService(options);
 };
 
-module.exports.Service = Service;
+module.exports.Service = JenkinsStatusesService;
