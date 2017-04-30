@@ -36,7 +36,7 @@ class App extends Component {
     // Bind methods
     this.fetchIssues = this.fetchIssues.bind(this);
     this.fetchStatuses = this.fetchStatuses.bind(this);
-    this.updateStatusOfIssues = this.updateStatusOfIssues.bind(this);
+    this.updateStatusOfIssue = this.updateStatusOfIssue.bind(this);
   }
 
   componentDidMount() {
@@ -55,19 +55,18 @@ class App extends Component {
 
   fetchStatuses(issues) {
     const statusesService = this.app.service('statuses');
-    return statusesService.find().then(this.updateStatusOfIssues);
+    return issues.map(issue => statusesService.get(issue.key).then(this.updateStatusOfIssue));
   }
 
-  updateStatusOfIssues(statuses) {
-    statuses.forEach(status => {
-      this.setState(prevState => {
-        let issue = prevState.issues.find(i => i.key === status.issue);
-        if(issue){
-          issue.status = status;
-        }
-        return { issues: prevState.issues };
-      })
+  updateStatusOfIssue(status) {
+    this.setState(prevState => {
+      let issue = prevState.issues.find(i => i.key === status.issueKey);
+      if(issue){
+        issue.status = status;
+      }
+      return { issues: prevState.issues };
     });
+    return status;
   }
 
   render() {
