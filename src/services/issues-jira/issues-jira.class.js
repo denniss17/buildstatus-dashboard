@@ -1,7 +1,8 @@
 const logger = require('winston');
 const request = require('request-promise');
+const Issue = require('../../models/issue');
 
-class Service {
+class JiraIssuesService {
   constructor (options) {
     this.options = options || {};
   }
@@ -40,9 +41,8 @@ class Service {
    * @returns {Array} An array containing the normalized issues.
    */
   transform(body) {
-    return body.issues.map(issue => ({
+    return body.issues.map(issue => new Issue({
       key: issue.key,
-      link: null,
       origin: 'jira',
       title: issue.fields ? issue.fields.summary : null,
       type: issue.fields && issue.fields.issuetype ? issue.fields.issuetype.name : null,
@@ -55,7 +55,7 @@ class Service {
 }
 
 module.exports = function (options) {
-  return new Service(options);
+  return new JiraIssuesService(options);
 };
 
-module.exports.Service = Service;
+module.exports.Service = JiraIssuesService;
