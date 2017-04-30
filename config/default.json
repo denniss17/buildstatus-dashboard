@@ -12,6 +12,5 @@
       "password": "JIRA_PASSWORD"
     }
   },
-  "ci": {},
-  "nedb": "../data"
+  "statuses": {}
 }
