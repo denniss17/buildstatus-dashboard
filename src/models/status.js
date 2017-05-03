@@ -3,6 +3,7 @@
  */
 const defaultStatus = {
   issueKey: null,
+  buildNumber: null,
   link: null,
   origin: null,
   result: null,
