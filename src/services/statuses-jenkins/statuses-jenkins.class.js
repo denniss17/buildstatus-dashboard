@@ -24,7 +24,7 @@ class JenkinsStatusesService {
     let requestOptions = {
       uri: `${this.options.baseUrl}/job/${this.options.jobNameTemplate.replace('{key}', issueKey)}/api/json?tree=builds[number,url,timestamp,id,building,result]`,
       json: true,
-      transform: this.transform
+      transform: body => this.transform(issueKey, body)
     };
 
     if (this.options.auth && this.options.auth.type !== 'none') {
@@ -38,12 +38,35 @@ class JenkinsStatusesService {
 
   /**
    * Transforms the response body to a normalized status
+   * @param issueKey The key of the issue the received status is for.
    * @param body The body of the response from Jenkins.
    * @returns {Array} An array containing the normalized status.
    */
-  transform(body) {
+  transform(issueKey, body) {
+    let lastBuild = body.builds[0];
+
+    let result = Status.StatusResult.UNKNOWN;
+
+    if(lastBuild){
+      if(lastBuild.result === 'SUCCESS'){
+        result = Status.StatusResult.SUCCESS;
+      }else if(lastBuild.result === 'UNSTABLE'){
+        result = Status.StatusResult.FAILURE;
+      }else{
+        // Status is not known but job exists -> running
+        result = Status.StatusResult.RUNNING;
+      }
+    }
+
     // TODO transform status
-    return new Status(body);
+    return new Status({
+      issueKey,
+      buildNumber: lastBuild ? lastBuild.id : null,
+      link: lastBuild ? lastBuild.url : null,
+      origin: 'jenkins',
+      result,
+      timestamp: lastBuild ? lastBuild.timestamp : null,
+    });
   }
 }
 
