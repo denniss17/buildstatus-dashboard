@@ -52,6 +52,8 @@ class JenkinsStatusesService {
         result = Status.StatusResult.SUCCESS;
       }else if(lastBuild.result === 'UNSTABLE'){
         result = Status.StatusResult.FAILURE;
+      }else if(lastBuild.result === 'FAILURE'){
+        result = Status.StatusResult.FAILURE;
       }else{
         // Status is not known but job exists -> running
         result = Status.StatusResult.RUNNING;
