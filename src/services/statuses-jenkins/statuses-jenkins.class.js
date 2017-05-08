@@ -48,7 +48,9 @@ class JenkinsStatusesService {
     let result = Status.StatusResult.UNKNOWN;
 
     if(lastBuild){
-      if(lastBuild.result === 'SUCCESS'){
+      if(lastBuild.building){
+        result = Status.StatusResult.RUNNING;
+      }else if(lastBuild.result === 'SUCCESS'){
         result = Status.StatusResult.SUCCESS;
       }else if(lastBuild.result === 'UNSTABLE'){
         result = Status.StatusResult.FAILURE;
