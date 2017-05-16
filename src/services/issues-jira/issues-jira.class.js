@@ -21,7 +21,7 @@ class JiraIssuesService {
    */
   request() {
     let requestOptions = {
-      uri: `${this.options.baseUrl}/rest/api/2/search?jql=${this.options.filter}`,
+      uri: `${this.options.baseUrl}/rest/api/2/search?maxResults=200&jql=${this.options.filter}`,
       json: true,
       transform: this.transform
     };
