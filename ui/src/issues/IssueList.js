@@ -11,7 +11,7 @@ class IssueList extends Component {
       <div className="col-lg-2 col-md-3 col-sm-6 col-12" key={issue.key}>
         <div className={"card card-inverse issue-card mt-3 " + this.cardStyle(issue)}>
           <div className="card-block">
-            <h4 className="card-title">{issue.key}</h4>
+            <h4 className="card-title"><a href={issue.status ? issue.status.link : null} target="_blank">{issue.key}</a></h4>
             <h6 className="card-subtitle">{issue.title}</h6>
           </div>
         </div>

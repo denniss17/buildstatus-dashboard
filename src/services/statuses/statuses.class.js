@@ -1,4 +1,5 @@
 const logger = require('winston');
+const errors = require('feathers-errors');
 
 class Service {
   constructor (options) {
@@ -26,7 +27,7 @@ class Service {
   }
 
   get(issueKey) {
-    return this.buildStatusesService.get(issueKey);
+    return this.buildStatusesService.get(issueKey).catch(error => new errors.NotFound('Status could not be determined for this issue'));
   }
 }
 

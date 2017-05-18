@@ -62,7 +62,6 @@ class JenkinsStatusesService {
       }
     }
 
-    // TODO transform status
     return new Status({
       issueKey,
       buildNumber: lastBuild ? lastBuild.id : null,
