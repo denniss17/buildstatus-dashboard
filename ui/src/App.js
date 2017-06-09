@@ -3,10 +3,10 @@ import feathers from 'feathers/client';
 import rest from 'feathers-rest/client';
 import request from 'request';
 
-import Footer from './Footer';
-import IssueList from './issues/IssueList';
+import Footer from 'Footer'
+import Home from 'containers/Home';
 
-import './App.css';
+import 'App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 
@@ -63,7 +63,7 @@ class App extends Component {
   fetchIssues() {
     const issueService = this.app.service('issues');
     return issueService.find().then(issues => {
-      this.setState({issues,});
+      this.setState({issues});
       return issues;
     }).catch(error => {
       console.log(error);
@@ -90,7 +90,7 @@ class App extends Component {
     return (
       <div>
         <div className="container-fluid status-dashboard">
-          <IssueList issues={this.state.issues}/>
+          <Home issues={this.state.issues}/>
         </div>
         <Footer issues={this.state.issues}/>
       </div>
