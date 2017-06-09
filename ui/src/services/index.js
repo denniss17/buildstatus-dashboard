@@ -9,5 +9,6 @@ const app = feathers().configure(rest(serverUrl).request(request));
 
 export const issues = app.service('issues');
 export const statuses = app.service('statuses');
+export const info = app.service('info');
 
 export default app;
