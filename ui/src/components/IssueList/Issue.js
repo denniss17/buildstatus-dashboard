@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './Issue.css';
+
 class Issue extends Component {
   cardStyle() {
     let status = this.props.status;

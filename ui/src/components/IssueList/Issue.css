@@ -1,0 +1,7 @@
+.issue-card .card-title a {
+  color: white;
+}
+
+.issue-card.card-success {
+  background-color: #3c763d;
+}
