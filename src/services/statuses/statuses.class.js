@@ -9,7 +9,7 @@ class Service {
 
   loadBuildStatusesService () {
     if(!this.options.type){
-      throw new Error('No status configuration found. Please configure the statuses service.')
+      throw new Error('No status configuration found. Please configure the statuses service.');
     }
     logger.info(`Loading statuses service of type '${this.options.type}'`);
 
@@ -27,7 +27,7 @@ class Service {
   }
 
   get(issueKey) {
-    return this.buildStatusesService.get(issueKey).catch(error => new errors.NotFound('Status could not be determined for this issue'));
+    return this.buildStatusesService.get(issueKey).catch(() => new errors.NotFound('Status could not be determined for this issue'));
   }
 }
 

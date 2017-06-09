@@ -8,7 +8,7 @@ class Service {
 
   loadIssuesService() {
     if(!this.options.type){
-      throw new Error('No issues configuration found. Please configure the issues service.')
+      throw new Error('No issues configuration found. Please configure the issues service.');
     }
 
     logger.info(`Loading issues service of type '${this.options.type}'`);

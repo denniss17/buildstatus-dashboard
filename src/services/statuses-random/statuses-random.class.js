@@ -18,7 +18,7 @@ class RandomStatusesService {
       issueKey,
       result: statusResults[Math.floor(Math.random() * statusResults.length)],
       origin: 'random'
-    })
+    });
   }
 }
 
