@@ -40,17 +40,30 @@ class App extends Component {
     // Bind methods
     this.fetchIssues = this.fetchIssues.bind(this);
     this.fetchStatuses = this.fetchStatuses.bind(this);
+    this.tick = this.tick.bind(this);
     this.updateStatusOfIssue = this.updateStatusOfIssue.bind(this);
   }
 
   componentDidMount() {
+    this.fetchIssues().then(this.fetchStatuses);
+    this.timerID = setInterval(
+      () => this.tick(),
+      60000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
     this.fetchIssues().then(this.fetchStatuses);
   }
 
   fetchIssues() {
     const issueService = this.app.service('issues');
     return issueService.find().then(issues => {
-      this.setState({issues, });
+      this.setState({issues,});
       return issues;
     }).catch(error => {
       console.log(error);
@@ -65,10 +78,10 @@ class App extends Component {
   updateStatusOfIssue(status) {
     this.setState(prevState => {
       let issue = prevState.issues.find(i => i.key === status.issueKey);
-      if(issue){
+      if (issue) {
         issue.status = status;
       }
-      return { issues: prevState.issues };
+      return {issues: prevState.issues};
     });
     return status;
   }
