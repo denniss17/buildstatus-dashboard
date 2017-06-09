@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
     case GET_STATUS_ERROR:
       newEntry[action.issueKey] = {};
       return Object.assign({}, state, { statusesForIssues: Object.assign({}, state.statusesForIssues, newEntry) });
+    default:
+      return state;
   }
-
-  return state;
 }

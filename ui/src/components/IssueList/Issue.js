@@ -17,6 +17,8 @@ class Issue extends Component {
           return 'card-danger';
         case 'UNKNOWN':
           return 'card-outline-secondary';
+        default:
+          return 'card-outline-danger';
       }
     }
     return 'card-outline-danger';
