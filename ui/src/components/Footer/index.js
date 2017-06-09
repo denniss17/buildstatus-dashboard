@@ -4,14 +4,14 @@ class Footer extends Component {
   render() {
     return (
       <nav className="navbar fixed-bottom navbar-inverse bg-inverse">
-        <div class="container">
-          <span className="navbar-text">{this.props.issues.length} issues</span>
-          <a className="navbar-brand float-right mr-2 text-muted" href="https://github.com/denniss17/status-dashboard" target="_blank">
+        <div>
+          {/*<span className="navbar-text">{this.props.issues.length} issues</span>*/}
+          <a className="navbar-brand float-right mr-2 text-muted" href="https://github.com/denniss17/status-dashboard" rel="noopener noreferrer" target="_blank">
             <i className="fa fa-github"></i>
           </a>
         </div>
       </nav>
-    )
+    );
   }
 }
 

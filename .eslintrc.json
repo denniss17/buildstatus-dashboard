@@ -1,5 +1,6 @@
 {
   "env": {
+    "browser": true,
     "es6": true,
     "node": true,
     "mocha": true
@@ -20,12 +21,16 @@
   "rules": {
     "indent": [
       "error",
-      2
+      2,
+      {
+        "SwitchCase": 1
+      }
     ],
     "linebreak-style": [
       "error",
       "unix"
     ],
+    "no-case-declarations": "off",
     "object-curly-spacing": [
       "error",
       "always"
