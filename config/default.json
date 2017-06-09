@@ -10,7 +10,8 @@
       "type": "none",
       "username": "JIRA_USERNAME",
       "password": "JIRA_PASSWORD"
-    }
+    },
+    "fixed": []
   },
   "statuses": {
     "type": "random"
