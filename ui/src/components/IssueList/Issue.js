@@ -15,9 +15,11 @@ class Issue extends Component {
           return 'card-warning';
         case 'ERROR':
           return 'card-danger';
+        case 'UNKNOWN':
+          return 'card-outline-secondary';
       }
     }
-    return 'card-outline-secondary';
+    return 'card-outline-danger';
   }
 
   render() {

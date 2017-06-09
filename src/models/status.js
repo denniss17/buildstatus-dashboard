@@ -13,6 +13,7 @@ const defaultStatus = {
 const StatusResult = {
   SUCCESS: 'SUCCESS',
   FAILURE: 'FAILURE',
+  ERROR: 'ERROR',
   RUNNING: 'RUNNING',
   UNKNOWN: 'UNKNOWN',
 };

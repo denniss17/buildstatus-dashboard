@@ -1,14 +1,14 @@
 const logger = require('winston');
-const errors = require('feathers-errors');
+const Status = require('../../models/status');
 
 class Service {
-  constructor (options) {
+  constructor(options) {
     this.options = options || {};
     this.loadBuildStatusesService();
   }
 
-  loadBuildStatusesService () {
-    if(!this.options.type){
+  loadBuildStatusesService() {
+    if (!this.options.type) {
       throw new Error('No status configuration found. Please configure the statuses service.');
     }
     logger.info(`Loading statuses service of type '${this.options.type}'`);
@@ -21,13 +21,20 @@ class Service {
 
   setup(app) {
     this.app = app;
-    if(typeof this.buildStatusesService.setup === 'function'){
+    if (typeof this.buildStatusesService.setup === 'function') {
       this.buildStatusesService.setup(this.app);
     }
   }
 
   get(issueKey) {
-    return this.buildStatusesService.get(issueKey).catch(() => new errors.NotFound('Status could not be determined for this issue'));
+    return this.buildStatusesService.get(issueKey).catch(() => {
+      return new Status({
+        issueKey,
+        origin: 'jenkins',
+        result: Status.StatusResult.UNKNOWN,
+        timestamp: new Date()
+      });
+    });
   }
 }
 
