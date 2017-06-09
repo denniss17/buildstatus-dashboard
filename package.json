@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "npm run eslint && npm run mocha && cd ui && npm run test",
-    "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "eslint": "eslint ui/. src/. test/. --config .eslintrc.json",
     "start": "node src/",
     "build": "cd ui && yarn build",
     "react": "cd ui && yarn start",
@@ -39,6 +39,7 @@
     "compression": "^1.6.2",
     "cors": "^2.8.3",
     "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1",
     "feathers": "^2.1.1",
     "feathers-configuration": "^0.4.1",
     "feathers-errors": "^2.6.3",
