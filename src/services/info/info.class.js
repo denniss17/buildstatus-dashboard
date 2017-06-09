@@ -1,4 +1,4 @@
-var ip = require('ip');
+const ip = require('ip');
 
 class Service {
   constructor (options) {
