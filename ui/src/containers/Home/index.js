@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import IssueList from '../../components/IssueList';
+import IssueProviderList from '../../components/IssueProviderList';
 
 class Home extends Component {
   render() {
     return (
-      <IssueList issues={this.props.issues} statusesForIssues={this.props.statusesForIssues}/>
+      <IssueProviderList issueProviders={this.props.issueProviders} statusesForIssues={this.props.statusesForIssues}/>
     );
   }
 }
 
 Home.propTypes = {
-  issues: PropTypes.array,
+  issueProviders: PropTypes.object,
   statusesForIssues: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({ issues: state.issues, statusesForIssues: state.statusesForIssues });
+const mapStateToProps = (state) => ({ issueProviders: state.issueProviders, statusesForIssues: state.statusesForIssues });
 
 export default connect(mapStateToProps)(Home);

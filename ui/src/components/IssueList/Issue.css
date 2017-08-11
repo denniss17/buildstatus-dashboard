@@ -2,6 +2,44 @@
   color: white;
 }
 
-.issue-card.card-success {
-  background-color: #3c763d;
+/*.issue-card.card-success {*/
+  /*background-color: #2EBD4D;*/
+/*}*/
+
+/*.issue-card.card-info {*/
+  /*background-color: #1A8B9D;*/
+/*}*/
+
+/*.issue-card.card-warning {*/
+  /*background-color: #FCE25D;*/
+/*}*/
+
+/*.issue-card.card-danger {*/
+  /*background-color: #f63903;*/
+/*}*/
+
+.issue-card.card-outline-secondary {
+  border-color: #666;
+}
+
+.issue-card .card-block {
+  padding: 6px 4px 6px 4px;
+}
+
+.issue-card .card-title {
+  font-size: 26px;
+  margin-bottom: 4px;
+}
+
+.issue-card .card-subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  overflow: hidden;
+  line-height: 15px;
+  height: 15px;
+}
+
+.issue-card .card-footer {
+  padding: 2px;
 }

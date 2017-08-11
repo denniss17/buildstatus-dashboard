@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 
 import Footer from '../../components/Footer';
 import Home from '../Home';
-import { getIssuesWithStatus } from '../../actions/issues';
+import { findIssueProvidersWithStatus } from '../../actions/issueProviders';
 import { getInfo } from '../../actions/info';
 
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 
 class App extends Component {
@@ -22,7 +21,7 @@ class App extends Component {
 
   tick() {
     this.props.getInfo();
-    this.props.getIssuesWithStatus();
+    this.props.findIssueProvidersWithStatus();
   }
 
   componentWillUnmount() {
@@ -32,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="container-fluid status-dashboard">
+        <div className="status-dashboard">
           <Home/>
         </div>
         <Footer/>
@@ -42,14 +41,14 @@ class App extends Component {
 }
 
 App.propTypes = {
-  getIssuesWithStatus: PropTypes.func,
+  findIssueProvidersWithStatus: PropTypes.func,
   getInfo: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getIssuesWithStatus: () => {
-      dispatch(getIssuesWithStatus());
+    findIssueProvidersWithStatus: () => {
+      dispatch(findIssueProvidersWithStatus());
     },
     getInfo: () => {
       dispatch(getInfo());
@@ -57,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(() => {}, mapDispatchToProps)(App);
+export default connect(() => ({}), mapDispatchToProps)(App);

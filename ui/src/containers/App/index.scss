@@ -1,0 +1,14 @@
+$grid-columns: 14;
+$grid-gutter-width-base: 10px;
+
+@import './../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.status-dashboard {
+  text-align: center;
+}
+
+.card-columns {
+  column-count: 10;
+}
+
+
