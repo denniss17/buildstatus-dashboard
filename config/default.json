@@ -3,15 +3,18 @@
   "port": 3030,
   "public": "../ui/build/",
   "issues": {
-    "type": "jira",
-    "baseUrl": "https://jira.atlassian.com",
-    "filter": "project %3D JRACLOUD AND resolutiondate >%3D -1w ORDER BY updated DESC",
-    "auth": {
-      "type": "none",
-      "username": "JIRA_USERNAME",
-      "password": "JIRA_PASSWORD"
-    },
-    "fixed": []
+    "providers": [
+      {
+        "type": "jira",
+        "baseUrl": "https://jira.atlassian.com",
+        "filter": "project %3D JRACLOUD AND resolutiondate >%3D -1w ORDER BY updated DESC",
+        "auth": {
+          "type": "none",
+          "username": "JIRA_USERNAME",
+          "password": "JIRA_PASSWORD"
+        }
+      }
+    ]
   },
   "statuses": {
     "type": "random"
