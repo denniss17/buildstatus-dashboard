@@ -1,6 +1,6 @@
 'use strict';
 
-const issues = require('./issues/issues.service.js');
+const issues = require('./issueProviders/issueProviders.service.js');
 
 const statuses = require('./statuses/statuses.service.js');
 

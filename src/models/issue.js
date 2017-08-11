@@ -8,7 +8,6 @@ const defaultIssue = {
   title: null,
   type: null,
   state: null,
-  description: null,
   created: null,
   updated: null
 };

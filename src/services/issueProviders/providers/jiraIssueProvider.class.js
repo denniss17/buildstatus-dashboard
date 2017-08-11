@@ -1,16 +1,16 @@
 const logger = require('winston');
 const request = require('request-promise');
-const Issue = require('../../models/issue');
+const Issue = require('../../../models/issue');
 
-class JiraIssuesService {
+/**
+ * Issue provider which requests issues from a Jira server based on a search query.
+ */
+class JiraIssueProvider {
   constructor (options) {
     this.options = options || {};
   }
 
-  setup(app) {
-    this.app = app;
-  }
-
+  // noinspection JSUnusedGlobalSymbols
   find () {
     return this.request();
   }
@@ -23,14 +23,11 @@ class JiraIssuesService {
     let requestOptions = {
       uri: `${this.options.baseUrl}/rest/api/2/search?maxResults=200&jql=${this.options.filter}`,
       json: true,
-      transform: this.transform
+      transform: this.transform,
+      auth: this.options.auth
     };
 
-    if (this.options.auth && this.options.auth.type !== 'none') {
-      requestOptions.auth = this.options.auth;
-    }
-
-    logger.info('Requesting issues from', requestOptions.uri);
+    logger.info('JiraIssueProvider: Requesting issues from', requestOptions.uri);
 
     return request(requestOptions);
   }
@@ -47,7 +44,6 @@ class JiraIssuesService {
       title: issue.fields ? issue.fields.summary : null,
       type: issue.fields && issue.fields.issuetype ? issue.fields.issuetype.name : null,
       state: issue.fields && issue.fields.resolution ? issue.fields.resolution.name : null,
-      description: issue.fields ? issue.fields.description : null,
       created: issue.fields ? issue.fields.created : null,
       updated: issue.fields ? issue.fields.updated : null
     }));
@@ -55,7 +51,7 @@ class JiraIssuesService {
 }
 
 module.exports = function (options) {
-  return new JiraIssuesService(options);
+  return new JiraIssueProvider(options);
 };
 
-module.exports.Service = JiraIssuesService;
+module.exports.Service = JiraIssueProvider;
