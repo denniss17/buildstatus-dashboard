@@ -31,7 +31,7 @@ class Issue extends Component {
     let status = this.props.status;
     return (
       <div className="col-lg-2 col-md-3 col-sm-6 col-12" key={issue.key}>
-        <div className={'card card-inverse issue-card mt-1 mb-1 ' + this.cardStyle()}>
+        <div className={'card card-inverse issue-card mt-2 ' + this.cardStyle()}>
           <div className="card-block">
             <h4 className="card-title"><a href={status ? status.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
             </h4>
