@@ -1,10 +1,12 @@
 const logger = require('winston');
 const errors = require('feathers-errors');
+const IssueProviderSerializer = require('../../serializers/issueProvider');
 
 class Service {
   constructor(options) {
     this.options = options || {};
     this.providers = [];
+    this.serializer = new IssueProviderSerializer();
     this.loadIssueProviders();
   }
 
@@ -28,18 +30,10 @@ class Service {
     this.providers.filter(provider => typeof provider.setup === 'function').forEach(provider => provider.setup(this.app));
   }
 
-  serializeProvider(provider, index){
-    return {
-      id: index,
-      type: provider.options.type,
-      title: provider.options.title
-    };
-  }
-
   // noinspection JSUnusedGlobalSymbols
   find() {
     // Return a list of providers
-    return Promise.resolve(this.providers.map(this.serializeProvider));
+    return Promise.resolve(this.providers.map(this.serializer.serialize));
   }
 
   get(id) {
@@ -47,7 +41,7 @@ class Service {
     if(provider) {
       // Simply redirect to the specific issue provider
       return provider.find().then(issues => {
-        return Object.assign({ issues }, this.serializeProvider(provider, parseInt(id)));
+        return Object.assign({ issues }, this.serializer.serialize(provider, parseInt(id)));
       });
     } else {
       return new errors.NotFound('Issue provider does not exist');

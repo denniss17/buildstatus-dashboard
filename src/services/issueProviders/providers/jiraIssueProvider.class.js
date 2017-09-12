@@ -38,7 +38,7 @@ class JiraIssueProvider {
    * @returns {Array} An array containing the normalized issues.
    */
   transform(body) {
-    return body.issues.map(issue => new Issue({
+    return body.issues && body.issues.map(issue => new Issue({
       key: issue.key,
       origin: 'jira',
       title: issue.fields ? issue.fields.summary : null,
