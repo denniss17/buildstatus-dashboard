@@ -29,8 +29,6 @@
     "eslint": "eslint ui/src/. src/. test/. --config .eslintrc.json",
     "start": "node src/",
     "build": "cd ui && yarn build",
-    "develop": "yarn start & yarn develop-react",
-    "develop-react": "cd ui && yarn develop",
     "mocha": "mocha test/ --recursive",
     "postinstall": "cd ui && yarn install && yarn build"
   },

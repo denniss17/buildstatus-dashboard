@@ -32,7 +32,7 @@ This command first installs all dependencies, and then builds a production versi
 
 The dashboard can be started with:
 
-    NODE_ENV=production yarn start
+    yarn start
     
 Open your browser and go to http://localhost:3030
 
@@ -58,6 +58,7 @@ TODO
 
 Supported:
 
+- [x] Fixed issues
 - [x] Jira
 - [ ] Github
 - [ ] Bitbucket
@@ -75,8 +76,8 @@ Supported:
 ## Development
 
 You can run the backend and the ui as seperate instances. This allows to use the hot module replacement of the webpack 
-configuration of `react-create-app`. To do so, you can execute:
+configuration of `react-create-app`. To do so, you can execute in the `ui` directory:
 
-    yarn run develop
+    yarn start
 
 By default, this opens the feathers backend on port 3030, and the react interface on port 3000.
