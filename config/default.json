@@ -5,6 +5,65 @@
   "issues": {
     "providers": [
       {
+        "type": "fixed",
+        "title": "Critical",
+        "issues": [
+          {
+            "key": "Issue 218",
+            "title": "Tests are failing"
+          },
+          {
+            "key": "Issue 219",
+            "title": "Unable to login"
+          }
+        ]
+      },
+      {
+        "type": "fixed",
+        "title": "Next version",
+        "issues": [
+          {
+            "key": "Issue 123",
+            "title": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "key": "Issue 124",
+            "title": "consectetur adipiscing elit"
+          },
+          {
+            "key": "Issue 128",
+            "title": "Quisque et justo id dui bibendum "
+          },{
+            "key": "Issue 170",
+            "title": "Donec eu dolor ac orci venenatis aliquam"
+          },
+          {
+            "key": "Issue 89",
+            "title": "Donec eget gravida ante. Morbi eget elementum odio."
+          },
+          {
+            "key": "Issue 120",
+            "title": "Aenean finibus, metus quis condimentum ultricies, felis nisi consectetur nulla, vel hendrerit risus sem sit amet lacus"
+          },
+          {
+            "key": "Issue 72",
+            "title": "Cras ultricies nunc quis purus placerat, ornare ornare felis varius"
+          },
+          {
+            "key": "Issue 241",
+            "title": "Pellentesque magna tellus, convallis nec fermentum sed, sollicitudin a urna"
+          },
+          {
+            "key": "Issue 43",
+            "title": "Morbi felis sapien, placerat ut justo euismod, malesuada blandit tellus"
+          },
+          {
+            "key": "Issue 102",
+            "title": "Mauris sed maximus dui, nec porttitor lorem"
+          }
+        ]
+      },
+      {
         "type": "jira",
         "baseUrl": "https://jira.atlassian.com",
         "filter": "project %3D JRACLOUD AND resolutiondate >%3D -1w ORDER BY updated DESC",
