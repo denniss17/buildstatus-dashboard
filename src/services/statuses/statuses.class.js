@@ -4,33 +4,33 @@ const Status = require('../../models/status');
 class Service {
   constructor(options) {
     this.options = options || {};
-    this.loadBuildStatusesService();
+    this.loadStatusesService();
   }
 
-  loadBuildStatusesService() {
+  loadStatusesService() {
     if (!this.options.type) {
       throw new Error('No status configuration found. Please configure the statuses service.');
     }
-    logger.info(`Loading statuses service of type '${this.options.type}'`);
+    const serviceName = `${this.options.type}Statuses`;
+    logger.info(`Loading statuses of type '${this.options.type}' (service name: '${serviceName}')`);
 
-    const serviceName = `statuses-${this.options.type}`;
-    const createService = require(`../${serviceName}/${serviceName}.class`);
-
-    this.buildStatusesService = createService(this.options);
+    const createService = require(`./providers/${serviceName}.class`);
+    this.statusesService = createService(this.options);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   setup(app) {
     this.app = app;
-    if (typeof this.buildStatusesService.setup === 'function') {
-      this.buildStatusesService.setup(this.app);
+    if (typeof this.statusesService.setup === 'function') {
+      this.statusesService.setup(this.app);
     }
   }
 
   get(issueKey) {
-    return this.buildStatusesService.get(issueKey).catch(() => {
+    return this.statusesService.get(issueKey).catch(() => {
       return new Status({
         issueKey,
-        origin: 'jenkins',
+        origin: 'system',
         result: Status.StatusResult.UNKNOWN,
         timestamp: new Date()
       });

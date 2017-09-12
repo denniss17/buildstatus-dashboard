@@ -1,5 +1,5 @@
 const logger = require('winston');
-const Status = require('../../models/status');
+const Status = require('../../../models/status');
 
 const statusResults = [Status.StatusResult.SUCCESS, Status.StatusResult.FAILURE, Status.StatusResult.RUNNING, Status.StatusResult.UNKNOWN];
 

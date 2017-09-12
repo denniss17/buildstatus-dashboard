@@ -1,14 +1,13 @@
 const logger = require('winston');
 const request = require('request-promise');
-const Status = require('../../models/status');
+const Status = require('../../../models/status');
 
 class JenkinsStatusesService {
-  constructor (options) {
-    this.options = options || {};
-  }
-
-  setup(app) {
-    this.app = app;
+  constructor(options) {
+    this.options = Object.assign({
+      baseUrl: null,
+      jobNameTemplate: '{key}'
+    }, options);
   }
 
   get(issueKey) {
@@ -47,16 +46,16 @@ class JenkinsStatusesService {
 
     let result = Status.StatusResult.UNKNOWN;
 
-    if(lastBuild){
-      if(lastBuild.building){
+    if (lastBuild) {
+      if (lastBuild.building) {
         result = Status.StatusResult.RUNNING;
-      }else if(lastBuild.result === 'SUCCESS'){
+      } else if (lastBuild.result === 'SUCCESS') {
         result = Status.StatusResult.SUCCESS;
-      }else if(lastBuild.result === 'UNSTABLE'){
+      } else if (lastBuild.result === 'UNSTABLE') {
         result = Status.StatusResult.FAILURE;
-      }else if(lastBuild.result === 'FAILURE'){
+      } else if (lastBuild.result === 'FAILURE') {
         result = Status.StatusResult.ERROR;
-      }else{
+      } else {
         // Status is not known but job exists -> running
         result = Status.StatusResult.RUNNING;
       }
@@ -73,7 +72,7 @@ class JenkinsStatusesService {
   }
 }
 
-module.exports = function (options) {
+module.exports = function(options) {
   return new JenkinsStatusesService(options);
 };
 
