@@ -1,10 +1,13 @@
 const logger = require('winston');
+const Datastore = require('nedb')
 const Status = require('../../models/status');
 
 class Service {
   constructor(options) {
     this.options = options || {};
+    this.db = null;
     this.loadStatusesService();
+    this.loadDatabase();
   }
 
   loadStatusesService() {
@@ -18,6 +21,10 @@ class Service {
     this.statusesService = createService(this.options);
   }
 
+  loadDatabase() {
+    this.db = new Datastore({ filename: 'cache/statuses', autoload: true });
+  }
+
   // noinspection JSUnusedGlobalSymbols
   setup(app) {
     this.app = app;
@@ -27,13 +34,23 @@ class Service {
   }
 
   get(issueKey) {
-    return this.statusesService.get(issueKey).catch(() => {
-      return new Status({
-        issueKey,
-        origin: 'system',
-        result: Status.StatusResult.UNKNOWN,
-        timestamp: new Date()
-      });
+    return new Promise(resolve => {
+      this.statusesService.get(issueKey).then(status => {
+        // Insert or update ("upsert") the status in the cache
+        this.db.update({ issueKey }, status, { upsert: true });
+        resolve(status);
+      }).catch(() => {
+        // See if we have the status in the cache
+        this.db.findOne({ issueKey }, function(err, status) {
+          status && logger.info('Loaded status from cache:', status);
+          resolve(status || new Status({
+            issueKey,
+            origin: 'system',
+            result: Status.StatusResult.UNKNOWN,
+            timestamp: new Date()
+          }));
+        });
+      })
     });
   }
 }
