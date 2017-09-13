@@ -13,11 +13,11 @@ class FixedIssueProvider {
     // For each defined issueKey, return an issue
     if (this.options.issues) {
       return Promise.resolve(this.options.issues.map(issue => {
-        if(typeof(issue) === 'string') {
-          issue = { issue }
+        if (typeof(issue) === 'string') {
+          issue = { key: issue };
         }
 
-        return new Issue(Object.assign({}, issue, {origin: 'fixed'}));
+        return new Issue(Object.assign({}, issue, { origin: 'fixed' }));
       }));
     } else {
       return Promise.resolve([]);
