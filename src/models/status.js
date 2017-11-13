@@ -7,7 +7,9 @@ const defaultStatus = {
   link: null,
   origin: null,
   result: null,
-  timestamp: null
+  timestamp: null, // Timestamp of status from provider
+  updatedAt: null, // Timestamp of time this status was retrieved from provider
+  cached: false
 };
 
 const StatusResult = {
