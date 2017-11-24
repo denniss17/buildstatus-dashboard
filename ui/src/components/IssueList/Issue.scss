@@ -1,11 +1,3 @@
-.issue-card.card-outline-secondary {
-  border-color: #666;
-}
-
-.issue-card.card-cached .card-title::before {
-  content: '✗ ';
-}
-
 .issue-card .card-body {
   padding: 2px 4px;
   a {
@@ -25,8 +17,4 @@
   overflow: hidden;
   line-height: 20px;
   height: 20px;
-}
-
-.issue-card .card-footer {
-  padding: 2px;
 }
