@@ -35,34 +35,49 @@ class Service {
     }
   }
 
+  static statusIsTooRecent(status) {
+    return status && status.updatedAt > (new Date() - 50000);
+  }
+
+  updateStatusInDb(status) {
+    status.updatedAt = new Date().getTime();
+    this.db.update({ issueKey: status.issueKey }, status, { upsert: true });
+  }
+
   get(issueKey) {
     return new Promise(resolve => {
       // Find existing status
       this.db.findOne({ issueKey }, (err, existingStatus) => {
         // If existing is within interval: use cached
-        if (existingStatus && existingStatus.updatedAt > (new Date() - 50000)) {
+        if(Service.statusIsTooRecent(existingStatus)) {
+          logger.debug('Too recent:', existingStatus);
           resolve(existingStatus);
+          return;
         }
 
         // Request new status
         this.statusesService.get(issueKey).then(status => {
-          // Insert or update ("upsert") the status in the cache
-          status.updatedAt = new Date().getTime();
-          this.db.update({ issueKey }, status, { upsert: true });
+          this.updateStatusInDb(status);
           resolve(status);
         }).catch(() => {
-          // See if we have the status in the cache
+          // No status available from provider
           if (existingStatus) {
-            logger.info('Status not available, returning status from cache:', existingStatus);
-            existingStatus.cached = true;
+            // Old status is in the cache: use this one
+            logger.debug('Status not available, returning status from cache:', existingStatus);
+            this.updateStatusInDb(existingStatus);
+            existingStatus.cached = (existingStatus.result !== Status.StatusResult.UNKNOWN);
+            resolve(existingStatus);
+          } else {
+            // No status in the cache: remember that there is no status
+            let status = new Status({
+              issueKey,
+              origin: 'system',
+              result: Status.StatusResult.UNKNOWN,
+              timestamp: new Date(),
+            });
+            this.updateStatusInDb(status);
+            resolve(status);
           }
-
-          resolve(existingStatus || new Status({
-            issueKey,
-            origin: 'system',
-            result: Status.StatusResult.UNKNOWN,
-            timestamp: new Date()
-          }));
         });
       });
     });

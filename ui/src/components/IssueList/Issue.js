@@ -32,11 +32,13 @@ class Issue extends Component {
   render() {
     let issue = this.props.issue;
     let status = this.props.status;
+    let isCached = status && status.cached;
     return (
       <div className="col-xl-2 col-lg-4 col-sm-8 col-16" key={issue.key}>
         <div className={'card card-inverse issue-card mt-2 ' + this.cardStyle()}>
           <div className="card-body">
             <h4 className="card-title text-center">
+              {isCached && <span title="cached status">✗</span>}
               <a href={issue ? issue.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
             </h4>
             <h6 className="card-subtitle text-center" title={issue.title}>
