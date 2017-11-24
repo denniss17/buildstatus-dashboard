@@ -23,7 +23,7 @@ class JiraIssueProvider {
     let requestOptions = {
       uri: `${this.options.baseUrl}/rest/api/2/search?maxResults=200&jql=${this.options.filter}`,
       json: true,
-      transform: this.transform,
+      transform: this.transform.bind(this),
       auth: this.options.auth
     };
 
@@ -40,7 +40,7 @@ class JiraIssueProvider {
   transform(body) {
     return body.issues && body.issues.map(issue => new Issue({
       key: issue.key,
-      link: issue.self,
+      link: `${this.options.baseUrl}/browse/${issue.key}`,
       origin: 'jira',
       title: issue.fields ? issue.fields.summary : null,
       type: issue.fields && issue.fields.issuetype ? issue.fields.issuetype.name : null,
