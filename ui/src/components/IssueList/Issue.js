@@ -6,24 +6,27 @@ import './Issue.css';
 class Issue extends Component {
   cardStyle() {
     let status = this.props.status;
+    let isCached = status && status.cached;
+
+    let styleClass = isCached ? 'card-cached' : '';
 
     if (status) {
       switch (status.result) {
         case 'SUCCESS':
-          return 'card-success';
+          return `${styleClass} card-success`;
         case 'RUNNING':
-          return 'card-info';
+          return `${styleClass} card-info`;
         case 'FAILURE':
-          return 'card-warning';
+          return `${styleClass} card-warning`;
         case 'ERROR':
-          return 'card-danger';
+          return `${styleClass} card-danger`;
         case 'UNKNOWN':
-          return 'card-outline-secondary';
+          return `${styleClass} card-outline-secondary`;
         default:
-          return 'card-outline-danger';
+          return `${styleClass} card-outline-danger`;
       }
     }
-    return 'card-outline-danger';
+    return `${styleClass} card-outline-danger`;
   }
 
   render() {
