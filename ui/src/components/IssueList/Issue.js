@@ -13,32 +13,37 @@ class Issue extends Component {
     if (status) {
       switch (status.result) {
         case 'SUCCESS':
-          return `${styleClass} card-success`;
+          return `${styleClass} bg-success text-light`;
         case 'RUNNING':
-          return `${styleClass} card-info`;
+          return `${styleClass} bg-info text-light`;
         case 'FAILURE':
-          return `${styleClass} card-warning`;
+          return `${styleClass} bg-warning text-light`;
         case 'ERROR':
-          return `${styleClass} card-danger`;
+          return `${styleClass} bg-danger text-light`;
         case 'UNKNOWN':
-          return `${styleClass} card-outline-secondary`;
+          return `${styleClass} bg-dark text-muted`;
         default:
-          return `${styleClass} card-outline-danger`;
+          return `${styleClass} bg-dark text-danger`;
       }
     }
-    return `${styleClass} card-outline-danger`;
+    return `${styleClass} bg-dark text-danger`;
   }
 
   render() {
     let issue = this.props.issue;
     let status = this.props.status;
     return (
-      <div className="col-lg-2 col-md-3 col-sm-6 col-12" key={issue.key}>
+      <div className="col-xl-2 col-lg-4 col-sm-8 col-16" key={issue.key}>
         <div className={'card card-inverse issue-card mt-2 ' + this.cardStyle()}>
-          <div className="card-block">
-            <h4 className="card-title"><a href={status ? status.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
+          <div className="card-body">
+            <h4 className="card-title text-center">
+              <a href={issue ? issue.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
             </h4>
-            <h6 className="card-subtitle">{issue.title}</h6>
+            <h6 className="card-subtitle text-center" title={issue.title}>
+              <a href={status ? status.link : null} rel="noopener noreferrer" target="_blank">{issue.title}</a>
+            </h6>
+            {false && issue && issue.link && <a href={issue.link} className="card-link text-light" target="_blank">Issue</a>}
+            {false && status && status.link && <a href={status.link} className="card-link text-light" target="_blank">Status</a>}
           </div>
         </div>
       </div>

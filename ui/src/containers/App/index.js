@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 import Home from '../Home';
 import { findIssueProvidersWithStatus } from '../../actions/issueProviders';
 import { getInfo } from '../../actions/info';
@@ -31,10 +31,10 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header/>
         <div className="status-dashboard">
           <Home/>
         </div>
-        <Footer/>
       </div>
     );
   }
