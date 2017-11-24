@@ -40,6 +40,7 @@ class JiraIssueProvider {
   transform(body) {
     return body.issues && body.issues.map(issue => new Issue({
       key: issue.key,
+      link: issue.self,
       origin: 'jira',
       title: issue.fields ? issue.fields.summary : null,
       type: issue.fields && issue.fields.issuetype ? issue.fields.issuetype.name : null,
