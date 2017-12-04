@@ -39,13 +39,11 @@ class Issue extends Component {
           <div className="card-body">
             <h4 className="card-title text-center">
               {isCached && <span title="cached status">✗</span>}
-              <a href={issue ? issue.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
+              <a href={status ? status.link : null} rel="noopener noreferrer" target="_blank">{issue.key}</a>
             </h4>
             <h6 className="card-subtitle text-center" title={issue.title}>
-              <a href={status ? status.link : null} rel="noopener noreferrer" target="_blank">{issue.title}</a>
+              <a href={issue ? issue.link : null} rel="noopener noreferrer" target="_blank">{issue.title}</a>
             </h6>
-            {false && issue && issue.link && <a href={issue.link} className="card-link text-light" target="_blank">Issue</a>}
-            {false && status && status.link && <a href={status.link} className="card-link text-light" target="_blank">Status</a>}
           </div>
         </div>
       </div>
