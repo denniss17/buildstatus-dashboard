@@ -23,7 +23,9 @@ const app = feathers();
 app.configure(configuration(path.join(__dirname, '..')));
 // Enable CORS, security, compression, favicon and body parsing
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  frameguard: false // Disables adding the X-Frame-Options header, so it can run in an iframe
+}));
 app.use(compress());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
