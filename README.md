@@ -36,6 +36,24 @@ The dashboard can be started with:
     
 Open your browser and go to http://localhost:3030
 
+## Autostart on Raspberry PI
+
+### Status-dashboard process
+
+Add the following line to `/etc/rc.local` (replace paths of node and npm/yarn to your own path. I used nvm to manage the used node version):
+
+  su - pi -c "cd /home/pi/status-dashboard && /home/pi/.nvm/versions/node/v6.11.0/bin/node /home/pi/.nvm/versions/node/v6.11.0/bin/yarn start &"
+
+### Browser in full screen
+
+Add the following lines to `~/.config/lxsession/LXDE-pi/autostart`:
+
+  @xset s noblank
+  @xset s off
+  @xset -dpms
+  @chromium-browser --kiosk http://localhost:3030
+
+
 ## Configuration
 
 The configuration can be found in `/config`. You can either edit `production.json`, or create a `local.json` file.
