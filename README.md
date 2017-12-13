@@ -42,16 +42,16 @@ Open your browser and go to http://localhost:3030
 
 Add the following line to `/etc/rc.local` (replace paths of node and npm/yarn to your own path. I used nvm to manage the used node version):
 
-  su - pi -c "cd /home/pi/status-dashboard && /home/pi/.nvm/versions/node/v6.11.0/bin/node /home/pi/.nvm/versions/node/v6.11.0/bin/yarn start &"
+    su - pi -c "cd /home/pi/status-dashboard && /home/pi/.nvm/versions/node/v6.11.0/bin/node /home/pi/.nvm/versions/node/v6.11.0/bin/yarn start &"
 
 ### Browser in full screen
 
 Add the following lines to `~/.config/lxsession/LXDE-pi/autostart`:
 
-  @xset s noblank
-  @xset s off
-  @xset -dpms
-  @chromium-browser --kiosk http://localhost:3030
+    @xset s noblank
+    @xset s off
+    @xset -dpms
+    @chromium-browser --kiosk http://localhost:3030
 
 
 ## Configuration
