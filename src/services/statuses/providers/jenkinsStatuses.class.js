@@ -53,6 +53,8 @@ class JenkinsStatusesService {
         result = Status.StatusResult.SUCCESS;
       } else if (lastBuild.result === 'UNSTABLE') {
         result = Status.StatusResult.FAILURE;
+      } else if (lastBuild.result === 'ABORTED') {
+        result = Status.StatusResult.UNKNOWN;
       } else if (lastBuild.result === 'FAILURE') {
         result = Status.StatusResult.ERROR;
       } else {
